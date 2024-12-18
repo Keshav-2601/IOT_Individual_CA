@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from Models.UserModal import User,db
-from Middlewares import encrypt,decrypt
+from Middlewares.Passwordhashing import decrypt
 class mysqlrepository:
     @staticmethod 
     def insertdata(data):
@@ -23,7 +23,7 @@ class mysqlrepository:
             # Query the database for the user with the given email
             user = User.query.filter_by(email=input_email).first()
             if user:
-                if decrypt(user.password, input_password):
+                if  decrypt(user.password, input_password):
                     print("Login successful!")
                     return True
                 else:
