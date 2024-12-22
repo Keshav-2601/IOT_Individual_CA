@@ -1,0 +1,100 @@
+/* General Body Styles */
+body {
+    background: linear-gradient(to bottom, #e0f7fa, #f1f8e9);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Container for the Create Login Card */
+.create-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+/* Create Card Styling */
+.create-card {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Title Styling */
+.create-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Form Group Styling */
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+/* Label Styling */
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* Input Field Styling */
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+/* Input Focus Effect */
+.form-group input:focus {
+    border-color: #00796b;
+    outline: none;
+}
+
+/* Button Styling */
+.btn-create {
+    width: 100%;
+    padding: 10px;
+    background-color: #00796b;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Button Hover Effect */
+.btn-create:hover {
+    background-color: #004d40;
+}
+
+/* Login Link Styling */
+.login-link {
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+
+.login-link a {
+    color: #00796b;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Login Link Hover Effect */
+.login-link a:hover {
+    text-decoration: underline;
+}

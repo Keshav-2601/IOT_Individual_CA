@@ -1,10 +1,15 @@
-from werkzeug.security import generate_password_hash
-from werkzeug.security import check_password_hash
-
+import bcrypt
 def encrypt(password):
-    """Hashes the password using Werkzeug's generate_password_hash."""
-    return generate_password_hash(password)
+    """Hashes the password using bcrypt."""
+    salt = bcrypt.gensalt()
+    hashed_password = bcrypt.hashpw(password.encode(), salt)
+    return hashed_password
 
 def decrypt(hashed_password, input_password):
-    """Checks if the input password matches the hashed password."""
-    return check_password_hash(hashed_password, input_password)
+    try:
+        if isinstance(hashed_password, str):
+            hashed_password = hashed_password.encode() 
+        return bcrypt.checkpw(input_password.encode(), hashed_password)
+    except Exception as e:
+        print(f"Error during password verification: {e}")
+        return False

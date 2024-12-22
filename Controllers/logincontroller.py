@@ -13,7 +13,7 @@ def loginpage():
     Result=UserDB.mysqlrepository.Logindata(data)
     if(Result):
         print("Successfully login")
-        redirect('/homepage')
+        return redirect('/homepage')
     else:
         print("Invalid credential")
         redirect('/')
@@ -32,12 +32,25 @@ def creatlogin():
             "password": hashed_password
         }
 
-        result = UserDB.MySQLRepository.insertdata(data)  # Call the repository method
+        result = UserDB.mysqlrepository.insertdata(data)  # Call the repository method
 
         if result:
-            flash("Data added successfully!", "success")
+            print("Data added successfully!", "success")
             return redirect("/")
         else:
-            flash("Some error occurred. Can't save to the repository.", "danger")
+            print("Some error occurred. Can't save to the repository.", "danger")
         
     return render_template("CreateLogin.html")
+@login_blueprint.route("/homepage")
+def homepage():
+    return render_template("Homepage.html")
+
+@login_blueprint.route("/airquality")
+def airqualitypage():
+    return render_template("airqualitypage.html")
+
+@login_blueprint.route("/adminpage")
+def adminpage():
+    return render_template("adminpage.html")
+
+    
