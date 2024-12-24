@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import Blueprint, render_template,request,Response ,redirect,flash
 from Middlewares import Passwordhashing
+from Models.Air_quality_Modal import Air_Quality
 from Repositories import UserDB
 from Repositories.Admin_air_repo import admin_air_repo
 login_blueprint=Blueprint('login',__name__)
@@ -63,7 +64,8 @@ def airqualitypage():
 
 @login_blueprint.route("/adminpage")
 def adminpage():
-    return render_template("adminpage.html")
+    airqualitydata=Air_Quality.query.all()##to get entire data about air Quality.
+    return render_template("adminpage.html",data=airqualitydata)
 
 @login_blueprint.route("/adminlogin")
 def adminlogin():

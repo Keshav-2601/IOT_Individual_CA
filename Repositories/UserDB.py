@@ -35,7 +35,8 @@ class mysqlrepository:
                 return False
 
             input_password = data['password']
-            print("input_password: ", input_password)
+            input_password=input_password.encode("utf-8")
+            #print("input_password: ", input_password)
             if not input_password:
                 print("Password is missing in the form data.")
                 return False
@@ -43,13 +44,16 @@ class mysqlrepository:
             user = User.query.filter(User.email == input_email).first()
             if user:
                 print("Return value from filter:", user.email)
-                print("User password from DB:", user.password)
-
+               
+                print(" Before User password from DB:")
                 
-                hashed_password = user.password.encode() if isinstance(user.password, str) else user.password
-
+                hashed_password = user.password.encode("utf-8")
+               
+                print("After User password from DB:", type(hashed_password))
+                print("Input password:", type(input_password))
+                
                 if decrypt(hashed_password, input_password):
-                    print("Login successful!")
+                    print("Keshav Login successful!")
                     return True
                 else:
                     print("Incorrect password.")

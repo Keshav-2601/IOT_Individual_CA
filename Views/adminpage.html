@@ -1,33 +1,39 @@
 <!DOCTYPE html>
-
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Quality Data</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="static/css/homepage.css">
 </head>
-
 <body>
-      <canvas id="chart1" ></canvas>
-      
-    <script>
-        var chx = document.getElementById("chart1");
-        var chart = new Chart(chx, {
-            type: "bar",
-            data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    borderWidth: 1
-                }]
-            },
-        })
-    </script>
-
-    <button class="container" onclick="nextpage()">Air Quality Page</button>
+    <div class="container">
+        <canvas id="chart1"></canvas>
+        <h1>Air Quality Data</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Parameter 1</th>
+                    <th>Parameter 2</th>
+                    <th>Parameter 3</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                <tr>
+                    <td>{{ row.id }}</td>
+                    <td>{{ row.para1 }}</td>
+                    <td>{{ row.para2 }}</td>
+                    <td>{{ row.para3 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="/airquality">
+            <button>Air Quality Page</button>
+        </a>
+    </div>
 </body>
-<script>
-    function nextpage(){
-        window.location.href = "/airquality";
-    }
-</script>
 </html>

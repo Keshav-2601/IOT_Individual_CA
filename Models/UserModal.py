@@ -8,5 +8,5 @@ class User(db.Model):
     name=db.Column(db.String(200),nullable=False,)
     email=db.Column(db.String(20),nullable=False,unique=True)
     address=db.Column(db.String(20),nullable=False,)
-    password=db.Column(db.String(40),nullable=False,)
+    password=db.Column(db.String(100),nullable=False,)
 
