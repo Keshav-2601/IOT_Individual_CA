@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from Models.UserModal import User, db
+from Models.UserModal import User
+from Database.db import db
 from sqlalchemy import func
 from Middlewares.Passwordhashing import decrypt
 

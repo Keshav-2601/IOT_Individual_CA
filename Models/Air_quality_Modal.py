@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from Models.UserModal import db
+from Database.db import db
 
 class Air_Quality(db.Model):
     __tablename__="Air_Quality_Table"

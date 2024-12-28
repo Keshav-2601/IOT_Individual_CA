@@ -4,6 +4,7 @@ from Middlewares import Passwordhashing
 from Models.Air_quality_Modal import Air_Quality
 from Repositories import UserDB
 from Repositories.Admin_air_repo import admin_air_repo
+
 login_blueprint=Blueprint('login',__name__)
 
 @login_blueprint.route('/',methods=["POST","GET"])

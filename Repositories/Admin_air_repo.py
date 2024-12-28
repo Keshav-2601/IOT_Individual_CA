@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from Models.Air_quality_Modal import Air_Quality
-from Models.UserModal import db
+from Models.Air_quality_Modal import Air_Quality 
+from Database.db import db
 
 
 class admin_air_repo:
