@@ -7,7 +7,7 @@ from Repositories.Admin_air_repo import admin_air_repo
 
 login_blueprint=Blueprint('login',__name__)
 
-@login_blueprint.route('/',methods=["POST","GET"])
+@login_blueprint.route('/',methods=["GET","POST"])
 def loginpage():
     data={
         "email":request.form.get('email'),
@@ -22,7 +22,7 @@ def loginpage():
         redirect('/')
     return render_template("Login.html")
 
-@login_blueprint.route("/createlogin",methods=["POST","GET"])
+@login_blueprint.route("/createlogin",methods=["GET","POST"])
 def creatlogin():
     if request.method == "POST":
         password = request.form.get("password")
@@ -48,7 +48,7 @@ def creatlogin():
 def homepage():
     return render_template("Homepage.html")
 
-@login_blueprint.route("/airquality",methods=["POST","GET"])
+@login_blueprint.route("/airquality",methods=["GET","POST"])
 def airqualitypage():
     data={
         "parameter1":request.form.get("para1"),
@@ -63,13 +63,24 @@ def airqualitypage():
     
     return render_template("airqualitypage.html")
 
-@login_blueprint.route("/adminpage")
+@login_blueprint.route("/adminpage",methods=["GET","POST"])
 def adminpage():
     airqualitydata=Air_Quality.query.all()##to get entire data about air Quality.
     return render_template("adminpage.html",data=airqualitydata)
 
-@login_blueprint.route("/adminlogin")
+@login_blueprint.route("/adminlogin",methods=["GET","POST"])
 def adminlogin():
+    data={
+        "email":request.form.get("email"),
+        "password":request.form.get("password")
+    }
+    result=admin_air_repo.adminloginDB(data)
+    print("Result is ",result)
+    if(result):
+        print("successfully enteres as admin")
+        return redirect("/adminpage")
+    else:
+        print("Invalid Credential!! ")
     return render_template("Adminlogin.html")
 
     
