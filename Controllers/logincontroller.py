@@ -6,9 +6,16 @@ from Repositories import UserDB
 from Repositories.Admin_air_repo import admin_air_repo
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from Controllers.ProtectedRoutes import protectroutes
+from cryptography.fernet import Fernet
+import os
 import datetime
-login_blueprint=Blueprint('login',__name__)
+from dotenv import load_dotenv
+load_dotenv()
+encryption_key=os.getenv("ENCRYPTION_KEY")
+print("Loaded encryption key from controller :", encryption_key)
 
+cipher = Fernet(encryption_key)
+login_blueprint=Blueprint('login',__name__)
 @login_blueprint.route('/',methods=["GET","POST"])
 def loginpage():
     data={
@@ -18,10 +25,12 @@ def loginpage():
     Result=UserDB.mysqlrepository.Logindata(data)
     if(Result):
         jwttoken=create_access_token(identity=data["email"],additional_claims={"role":"User"},expires_delta=datetime.timedelta(days=7))
-        if(jwttoken):
+        encrypted_jwt_token=cipher.encrypt(jwttoken.encode())
+    
+        if(encrypted_jwt_token):
             print("Successfully login",jwttoken)
             response = redirect('/homepage')
-            response.set_cookie('access_token', jwttoken, httponly=True)  # Secure token storage
+            response.set_cookie('user-token', encrypted_jwt_token.decode(), httponly=False)  # Secure token storage
             return response
             
     else:
@@ -82,21 +91,28 @@ def adminpage():
     return render_template("adminpage.html",data=airqualitydata)
 
 @login_blueprint.route("/adminlogin",methods=["GET","POST"])
+
 def adminlogin():
+    print("goint to this route admin one ")
     data={
         "email":request.form.get("email"),
         "password":request.form.get("password")
     }
     result=admin_air_repo.adminloginDB(data)
-    print("Result is ",result)
+    print("Result is admin side: ",result)
     if(result):
-        adminjwttoken=create_access_token(identity=data["email"],additional_claims={"role":"Admin"},expires_delta=datetime.timedelta(days=7))
-        if(adminjwttoken):
-            
+        adminjwttoken=create_access_token(identity=data["email"],additional_claims={"role":"Admin"},expires_delta=datetime.timedelta(minutes=15))
+        encrypted_jwt_key=cipher.encrypt(adminjwttoken.encode())
+        print("Generated JWT: admin side: ", adminjwttoken)
+        print("Encrypted JWT Key: admin side: ", encrypted_jwt_key)
+
+        if(encrypted_jwt_key):
            print("successfully enteres as admin")
            response= redirect("/adminpage")
-           response.set_cookie("Admin-Jwt_token",adminjwttoken,httponly=True)
+           response.set_cookie("Admin-Jwt_token",encrypted_jwt_key.decode(),httponly=False)
            return response
+        else:
+            print("error no encrpted key")
     else:
         print(jsonify("error can't create jwt as well login as well as a admin"))
         print("Invalid Credential!! ")

@@ -5,9 +5,16 @@ from Models.UserModal import User
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 import os
+from cryptography.fernet import Fernet
 from dotenv import load_dotenv
 load_dotenv()
-print("JWT token==>: ",os.getenv("JWT_KEY"))
+
+encryption_key = Fernet.generate_key()
+encryption_key=os.getenv("ENCRYPTION_KEY")
+print("Loaded encryption key from server side :", encryption_key)
+
+cipher = Fernet(encryption_key)
+
 server = Flask(__name__, template_folder="Views")
 
 server.config["SQLALCHEMY_DATABASE_URI"] = (
@@ -15,6 +22,7 @@ server.config["SQLALCHEMY_DATABASE_URI"] = (
 )
 
 server.config["JWT_SECRET_KEY"]=os.getenv("JWT_KEY")
+
 jwt = JWTManager(server)
 server.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
