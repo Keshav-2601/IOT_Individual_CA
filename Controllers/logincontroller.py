@@ -5,6 +5,7 @@ from Models.Air_quality_Modal import Air_Quality
 from Repositories import UserDB
 from Repositories.Admin_air_repo import admin_air_repo
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+from Controllers.ProtectedRoutes import protectroutes
 import datetime
 login_blueprint=Blueprint('login',__name__)
 
@@ -51,11 +52,15 @@ def creatlogin():
             print("Some error occurred. Can't save to the repository.", "danger")
         
     return render_template("CreateLogin.html")
+
 @login_blueprint.route("/homepage")
+@protectroutes.normaluser
 def homepage():
     return render_template("Homepage.html")
 
+
 @login_blueprint.route("/airquality",methods=["GET","POST"])
+@protectroutes.adminrole
 def airqualitypage():
     data={
         "parameter1":request.form.get("para1"),
@@ -71,6 +76,7 @@ def airqualitypage():
     return render_template("airqualitypage.html")
 
 @login_blueprint.route("/adminpage",methods=["GET","POST"])
+@protectroutes.adminrole
 def adminpage():
     airqualitydata=Air_Quality.query.all()##to get entire data about air Quality.
     return render_template("adminpage.html",data=airqualitydata)
