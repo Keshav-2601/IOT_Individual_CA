@@ -3,7 +3,10 @@ from Controllers.logincontroller import login_blueprint
 from Database.db import db
 from Models.UserModal import User
 from flask_migrate import Migrate
-
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 server = Flask(__name__, template_folder="Views")
 
@@ -11,7 +14,8 @@ server.config["SQLALCHEMY_DATABASE_URI"] = (
     "mariadb+mariadbconnector://Keshav:password123@localhost/iot_air_quality"
 )
 
-
+server.config["JWTKey"]=os.getenv("JWT_KEY")
+jwt = JWTManager(server)
 server.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(server)

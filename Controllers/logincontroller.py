@@ -1,10 +1,11 @@
 from flask import Flask
-from flask import Blueprint, render_template,request,Response ,redirect,flash
+from flask import Blueprint, render_template,request,Response ,redirect,flash,jsonify
 from Middlewares import Passwordhashing
 from Models.Air_quality_Modal import Air_Quality
 from Repositories import UserDB
 from Repositories.Admin_air_repo import admin_air_repo
-
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+import datetime
 login_blueprint=Blueprint('login',__name__)
 
 @login_blueprint.route('/',methods=["GET","POST"])
@@ -15,9 +16,15 @@ def loginpage():
     }
     Result=UserDB.mysqlrepository.Logindata(data)
     if(Result):
-        print("Successfully login")
-        return redirect('/homepage')
+        jwttoken=create_access_token(identity=data["email"],additional_claims={"role":"User"},expires_delta=datetime.timedelta(days=7))
+        if(jwttoken):
+            print("Successfully login",jwttoken)
+            response = redirect('/homepage')
+            response.set_cookie('access_token', jwttoken, httponly=True)  # Secure token storage
+            return response
+            
     else:
+        print(jsonify({"error": "Token generation failed"}), 500)
         print("Invalid credential")
         redirect('/')
     return render_template("Login.html")
@@ -77,9 +84,15 @@ def adminlogin():
     result=admin_air_repo.adminloginDB(data)
     print("Result is ",result)
     if(result):
-        print("successfully enteres as admin")
-        return redirect("/adminpage")
+        adminjwttoken=create_access_token(identity=data["email"],additional_claims={"role":"Admin"},expires_delta=datetime.timedelta(days=7))
+        if(adminjwttoken):
+            
+           print("successfully enteres as admin")
+           response= redirect("/adminpage")
+           response.set_cookie("Admin-Jwt_token",adminjwttoken,httponly=True)
+           return response
     else:
+        print(jsonify("error can't create jwt as well login as well as a admin"))
         print("Invalid Credential!! ")
     return render_template("Adminlogin.html")
 
