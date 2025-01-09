@@ -18,7 +18,11 @@ cipher = Fernet(encryption_key)
 server = Flask(__name__, template_folder="static/Views")
 
 server.config["SQLALCHEMY_DATABASE_URI"] = (
-    "mariadb+mariadbconnector://Keshav:password123@localhost/iot_air_quality"
+    f"mariadb+mariadbconnector://"
+    f"{os.getenv('DB_USER', 'default_user')}:"  
+    f"{os.getenv('DB_PASSWORD', 'default_password')}@"  
+    f"{os.getenv('DB_HOST', 'localhost')}/"
+    f"{os.getenv('DB_NAME', 'iot_air_quality')}" 
 )
 
 server.config["JWT_SECRET_KEY"]=os.getenv("JWT_KEY")
