@@ -16,27 +16,51 @@ print("Loaded encryption key from controller :", encryption_key)
 
 cipher = Fernet(encryption_key)
 login_blueprint=Blueprint('login',__name__)
-@login_blueprint.route('/',methods=["GET","POST"])
+@login_blueprint.route('/', methods=["GET", "POST"])
 def loginpage():
-    data={
-        "email":request.form.get('email'),
-        "password":request.form.get('password'),
-    }
-    Result=UserDB.mysqlrepository.Logindata(data)
-    if(Result):
-        jwttoken=create_access_token(identity=data["email"],additional_claims={"role":"User"},expires_delta=datetime.timedelta(days=7))
-        encrypted_jwt_token=cipher.encrypt(jwttoken.encode())
+    if request.method == "POST":
+        data = {
+            "email": request.form.get('email'),
+            "password": request.form.get('password'),
+        }
+
+        # Call the database method to validate user credentials
+        Result = UserDB.mysqlrepository.Logindata(data)
+
+        if Result:
+            # Generate a JWT token
+            jwttoken = create_access_token(
+                identity=data["email"],
+                additional_claims={"role": "User"},
+                expires_delta=datetime.timedelta(days=7)
+            )
+
+            # Encrypt the JWT token
+            encrypted_jwt_token = cipher.encrypt(jwttoken.encode())
+
+            if encrypted_jwt_token:
+                print("Successfully logged in", jwttoken)
+
+                # Create a response and set the cookie
+                response = redirect('/homepage')
+                response.set_cookie(
+                    'user-token',
+                    encrypted_jwt_token.decode(),
+                    httponly=True,  # Ensure token cannot be accessed via JavaScript
+                    secure=True,   # Ensure cookie is sent only over HTTPS
+                    samesite='Lax' # Prevent CSRF attacks
+                )
+                return response
+            else:
+                # Handle token encryption failure
+                print("Token encryption failed")
+                return jsonify({"error": "Token encryption failed"}), 500
+        else:
+            # Invalid credentials
+            print("Invalid credentials")
+            return render_template("Login.html", error="Invalid credentials")
     
-        if(encrypted_jwt_token):
-            print("Successfully login",jwttoken)
-            response = redirect('/homepage')
-            response.set_cookie('user-token', encrypted_jwt_token.decode(), httponly=False)  # Secure token storage
-            return response
-            
-    else:
-        print(jsonify({"error": "Token generation failed"}), 500)
-        print("Invalid credential")
-        redirect('/')
+    # Handle GET requests to render the login page
     return render_template("Login.html")
 
 @login_blueprint.route("/createlogin",methods=["GET","POST"])
