@@ -91,7 +91,6 @@ def adminpage():
     return render_template("adminpage.html",data=airqualitydata)
 
 @login_blueprint.route("/adminlogin",methods=["GET","POST"])
-
 def adminlogin():
     print("goint to this route admin one ")
     data={

@@ -15,7 +15,7 @@ print("Loaded encryption key from server side :", encryption_key)
 
 cipher = Fernet(encryption_key)
 
-server = Flask(__name__, template_folder="Views")
+server = Flask(__name__, template_folder="static/Views")
 
 server.config["SQLALCHEMY_DATABASE_URI"] = (
     "mariadb+mariadbconnector://Keshav:password123@localhost/iot_air_quality"
