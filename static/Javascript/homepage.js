@@ -1,5 +1,3 @@
-import { Chart } from 'Charts.js';
-
 document.addEventListener("DOMContentLoaded", function () {
     var chx = document.getElementById("chart1");
     var chart = new Chart(chx, {
