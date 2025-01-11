@@ -35,9 +35,9 @@ def loginpage():
                 expires_delta=datetime.timedelta(days=7)
             )
 
-            # Encrypt the JWT token
+            
             encrypted_jwt_token = cipher.encrypt(jwttoken.encode())
-
+            print("user jwt token for checking: ",encrypted_jwt_token)
             if encrypted_jwt_token:
                 print("Successfully logged in", jwttoken)
 
@@ -60,7 +60,6 @@ def loginpage():
             print("Invalid credentials")
             return render_template("Login.html", error="Invalid credentials")
     
-    # Handle GET requests to render the login page
     return render_template("Login.html")
 
 @login_blueprint.route("/createlogin",methods=["GET","POST"])
@@ -87,9 +86,11 @@ def creatlogin():
     return render_template("CreateLogin.html")
 
 @login_blueprint.route("/homepage")
-@protectroutes.normaluser
+@protectroutes.normal_admin_both
 def homepage():
-    return render_template("Homepage.html")
+    airqualitydata=Air_Quality.query.all()
+    serialized_data = [entry.to_dict() for entry in airqualitydata]
+    return render_template("Homepage.html",data=serialized_data)
 
 
 @login_blueprint.route("/airquality",methods=["GET","POST"])

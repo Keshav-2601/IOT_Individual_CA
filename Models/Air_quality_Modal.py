@@ -9,4 +9,10 @@ class Air_Quality(db.Model):
     para3=db.Column(db.Integer,nullable=False,)
     
 
-    
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "para1": self.para1,
+            "para2": self.para2,
+            "para3": self.para3
+        }

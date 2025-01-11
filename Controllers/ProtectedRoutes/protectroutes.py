@@ -48,4 +48,38 @@ def normaluser(func):
             print("some error occured can't go to wrapper fucntion",e)
     return wrapper
     
-        
+def normal_admin_both(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        usertoken = request.cookies.get("user-token")  
+        admintoken = request.cookies.get("Admin-Jwt_token")  
+
+        if not usertoken and not admintoken:
+            return redirect("/")
+
+        try:
+    
+            if usertoken:
+                decrypt_usertoken = cipher.decrypt(usertoken.encode()).decode()
+                claim_user = decode_token(decrypt_usertoken)
+                user_role = claim_user.get("role")
+
+                if user_role in ["User", "Admin"]:
+                    return func(*args, **kwargs)  
+
+            if admintoken:
+                decrypt_admintoken = cipher.decrypt(admintoken.encode()).decode()
+                claim_admin = decode_token(decrypt_admintoken)
+                admin_role = claim_admin.get("role")
+
+                if admin_role in ["User", "Admin"]:
+                    return func(*args, **kwargs) 
+
+        except Exception as e:
+            print(f"Token decryption or validation error: {e}")
+            return redirect("/")  
+
+    
+        return redirect("/")
+
+    return wrapper

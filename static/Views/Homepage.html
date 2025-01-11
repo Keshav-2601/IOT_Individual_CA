@@ -20,12 +20,15 @@
     </main>
 
     <script>
+       /// const serialized_data = {{data | tojson | safe }};
+
+
         // Placeholder for chart using Chart.js
         const ctx = document.getElementById('chart1').getContext('2d');
         const chart1 = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                labels: ['Temperature', 'Pressure', 'AQI'],
                 datasets: [{
                     label: 'Air Quality Index',
                     data: [50, 60, 55, 70, 65, 80],
@@ -44,10 +47,6 @@
             }
         });
 
-        function logout() {
-            alert("Logged out successfully!");
-            // Redirect or handle logout
-        }
     </script>
 </body>
 </html>

@@ -1,95 +1,67 @@
-/* General body styling */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #e9f7f9; /* Light cyan for a clean background */
-    color: #333;
+/* Reset some default styles */
+body, h1, p, canvas {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-/* Page container */
-.container {
-    width: 80%;
-    margin: 50px auto; /* Center the content horizontally */
-    text-align: left; /* Align elements to the left */
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    color: #333;
 }
 
-/* Heading styling */
-h1 {
-    font-size: 2rem;
-    color: #007b5e; /* Green theme for the title */
-    margin-bottom: 20px;
-    text-align: left;
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: #1e90ff;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Table styling */
-table {
-    border-collapse: collapse;
-    width: 100%;
-    margin: 20px 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-    overflow-x: auto; /* For better responsiveness */
-}
-
-table th,
-table td {
-    text-align: center;
-    padding: 12px;
-    border: 1px solid #ddd;
-    font-size: 1rem;
-}
-
-table th {
-    background-color: #007b5e;
-    color: #fff;
+.header .logo {
+    font-size: 1.5rem;
     font-weight: bold;
 }
 
-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-table tr:hover {
-    background-color: #f1f1f1;
-}
-
-/* Button styling */
-button {
-    padding: 10px 20px;
-    font-size: 1rem;
-    color: #fff;
-    background-color: #007b5e;
+.logout-btn {
+    background: #ff6b6b;
+    color: white;
     border: none;
+    padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    display: block; /* Make the button take up its line */
-    margin-top: 20px;
-    width: 150px; /* Consistent size */
+    font-size: 1rem;
+    transition: background 0.3s ease;
+}
+
+.logout-btn:hover {
+    background: #ff4c4c;
+}
+
+.content {
     text-align: center;
+    padding: 20px;
 }
 
-button:hover {
-    background-color: #005a43;
+.content h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
 }
 
-/* Canvas Styling */
+.content p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
 canvas {
     display: block;
-    margin: 20px auto;
-    max-width: 100%;
-}
-
-/* Responsive Design */
-@media screen and (max-width: 768px) {
-    table {
-        font-size: 0.9rem;
-    }
-
-    button {
-        font-size: 0.9rem;
-        padding: 8px 15px;
-    }
+    margin: 0 auto;
+    max-width: 90%;
+    height: 300px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
