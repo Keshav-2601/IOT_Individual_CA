@@ -6,6 +6,7 @@ from functools import wraps
 from dotenv import load_dotenv
 load_dotenv()
 encryption_key=os.getenv("ENCRYPTION_KEY")
+
 print("Loaded encryption key from protectdedroute :", encryption_key)
 
 cipher = Fernet(encryption_key)
