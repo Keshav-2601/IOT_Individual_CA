@@ -7,11 +7,13 @@ from pubnub.pubnub import PubNub
 
 load_dotenv()
 
+cipher_key = os.urandom(32).hex() 
+## generate ciher key to make msg in transit secure.
 pnconfig = PNConfiguration()
 pnconfig.publish_key = os.getenv("PUB_KEY")
 pnconfig.subscribe_key = os.getenv("SUB_KEY")
 pnconfig.uuid = os.getenv("UUID")
-
+pnconfig.cipher_key=os.getenv("CIPHER_KEY")
 pubnub = PubNub(pnconfig)
 
 SEVERE_AQI_THRESHOLD = 100
