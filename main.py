@@ -1,44 +1,39 @@
 import time
 import random
-from gpiozero import RGBLED, Buzzer
+from dotenv import load_dotenv
+import os
+from pubnub.pnconfiguration import PNConfiguration
+from pubnub.pubnub import PubNub
 
-rgb_led = RGBLED(red=17, green=27, blue=22)  
-buzzer = Buzzer(18)  
+load_dotenv()
 
+pnconfig = PNConfiguration()
+pnconfig.publish_key = os.getenv("PUB_KEY")
+pnconfig.subscribe_key = os.getenv("SUB_KEY")
+pnconfig.uuid = os.getenv("UUID")
 
-SEVERE_AQI_THRESHOLD = 100  # Define this value according to Irish standards
+pubnub = PubNub(pnconfig)
+
+SEVERE_AQI_THRESHOLD = 100
 
 def read_bmp_sensor():
-    temperature = round(random.uniform(15.0, 25.0), 1)  
-    pressure = round(random.uniform(1000.0, 1025.0), 1)  
-    return temperature, pressure
+    return round(random.uniform(15.0, 25.0), 1), round(random.uniform(1000.0, 1025.0), 1)
 
 def read_mq135_sensor():
+    return random.randint(50, 150)
 
-    aqi = random.randint(50, 150)  
-    return aqi
+def send_to_pubnub(channel, message):
+    pubnub.publish().channel(channel).message(message).sync()
 
-def control_alerts(aqi):
-    if aqi > SEVERE_AQI_THRESHOLD:
-        rgb_led.color = (1, 0, 0)  
-        buzzer.on()  
-        print("Air Quality Severe! AQI:", aqi)
-    else:
-        rgb_led.color = (0, 1, 0) 
-        buzzer.off()  
-        print("Air Quality Safe. AQI:", aqi)
-
-try:
-    while True:
-        
-        temperature, pressure = read_bmp_sensor()
-        aqi = read_mq135_sensor()
-
-        print(f"Temperature: {temperature}°C, Pressure: {pressure} hPa, AQI: {aqi}")
-        control_alerts(aqi)
-        time.sleep(5)
-
-except KeyboardInterrupt:
-    print("Program stopped by user.")
-    rgb_led.off()
-    buzzer.off()
+while True:
+    temperature, pressure = read_bmp_sensor()
+    aqi = read_mq135_sensor()
+    data = {
+        "temperature": temperature,
+        "pressure": pressure,
+        "aqi": aqi,
+        "alert": "severe" if aqi > SEVERE_AQI_THRESHOLD else "safe"
+    }
+    send_to_pubnub("airquality", data)
+    print("data send succefully!! ")
+    time.sleep(5)
