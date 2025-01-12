@@ -15,7 +15,13 @@ encryption_key=os.getenv("ENCRYPTION_KEY")
 print("Loaded encryption key from controller :", encryption_key)
 
 cipher = Fernet(encryption_key)
+
 login_blueprint=Blueprint('login',__name__)
+
+@login_blueprint.route('/')
+def loginpage():
+    print("Accessed login page!")
+    return render_template("Login.html")
 @login_blueprint.route('/', methods=["GET", "POST"])
 def loginpage():
     if request.method == "POST":
