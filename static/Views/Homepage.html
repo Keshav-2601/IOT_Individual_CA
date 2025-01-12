@@ -3,50 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Air Quality Control</title>
+    <title>Air Quality Data</title>
     <link rel="stylesheet" href="static/css/homepage.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <header class="header">
-        <div class="logo">Air Quality Control</div>
-        <button class="logout-btn" onclick="logout()">Logout</button>
-    </header>
-
-    <main class="content">
-        <h1>Welcome to Air Quality Control</h1>
-        <p>Monitor and maintain optimal air quality with our system.</p>
-        <canvas id="chart1"></canvas>
-    </main>
-
-    <script>
-       /// const serialized_data = {{data | tojson | safe }};
-
-
-        // Placeholder for chart using Chart.js
-        const ctx = document.getElementById('chart1').getContext('2d');
-        const chart1 = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['Temperature', 'Pressure', 'AQI'],
-                datasets: [{
-                    label: 'Air Quality Index',
-                    data: [50, 60, 55, 70, 65, 80],
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderWidth: 2,
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    }
-                }
-            }
-        });
-
-    </script>
+    <div class="container">
+        <h1>Air Quality Data</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tempature</th>
+                    <th>Pressure </th>
+                    <th>AQI</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                <tr>
+                    <td>{{ row.id }}</td>
+                    <td>{{ row.para1 }}</td>
+                    <td>{{ row.para2 }}</td>
+                    <td>{{ row.para3 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

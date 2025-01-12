@@ -1,24 +1,36 @@
 <!DOCTYPE html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Quality Form</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="static/css/airquality.css">
     <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.34.0.min.js"></script>
+    <link rel="stylesheet" href="static/css/airquality.css">
 </head>
 
 <body>
     <div class="container">
-        <form action="/airquality" method="POST">
-            <div class="form-title">Air Quality Parameters</div>
-            <label for="para1">AIR's Quality Parameter 1</label>
-            <input type="number" id="para1"  name="para1" step="any" autocomplete="off" />
-            <label for="para2">AIR's Quality Parameter 2</label>
-            <input type="number" id="para2" name="para2" step="any" autocomplete="off" />
-            <label for="para3">AIR's Quality Parameter 3</label>
-            <input type="number" id="para3" name="para3" step="any" autocomplete="off" />
-            <button type="submit">SUBMIT</button>
-        </form>
-        <a href="/adminpage"><button>Back</button></div></a>
+        <div class="form-container">
+            <h1 class="form-title">Air Quality Parameters</h1>
+            <form action="/airquality" method="POST">
+                <div class="form-group">
+                    <label for="para1">Temperature</label>
+                    <input type="number" id="para1" name="para1" step="any" placeholder="Enter value..." autocomplete="off" />
+                </div>
+                <div class="form-group">
+                    <label for="para2">Pressure</label>
+                    <input type="number" id="para2" name="para2" step="any" placeholder="Enter value..." autocomplete="off" />
+                </div>
+                <div class="form-group">
+                    <label for="para3">AQI</label>
+                    <input type="number" id="para3" name="para3" step="any" placeholder="Enter value..." autocomplete="off" />
+                </div>
+                <button type="submit" class="btn-submit">Submit</button>
+            </form>
+            <a href="/adminpage"><button class="btn-back">Back</button></a>
+        </div>
     </div>
     <script type="module" src="/static/Javascript/air_quality_page.js"></script>
 </body>

@@ -1,71 +1,100 @@
+/* General Reset */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f7f8;
     margin: 0;
-    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
 
+/* Container */
 .container {
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 350px;
-}
-
-.container .title {
-    font-size: 20px;
-    color: #555;
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
+}
+
+/* Form Title */
+.form-title {
+    font-size: 1.8rem;
+    color: #007bff;
     margin-bottom: 20px;
-    font-weight: bold;
 }
 
-.container label {
-    display: block;
-    font-size: 16px;
+/* Form Group */
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    font-size: 1rem;
     color: #333;
-    margin-bottom: 8px;
-    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
 }
 
-.container input[type="number"] {
+.form-group input {
     width: 100%;
     padding: 10px;
-    margin-bottom: 20px;
+    font-size: 1rem;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 6px;
+    outline: none;
     box-sizing: border-box;
-    font-size: 14px;
     transition: border-color 0.3s ease;
 }
 
-.container input[type="number"]:focus {
-    border-color: #009688;
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 150, 136, 0.3);
+.form-group input:focus {
+    border-color: #007bff;
 }
 
-.container button {
+/* Buttons */
+.btn-submit, .btn-back {
+    display: inline-block;
     width: 100%;
+    margin-top: 10px;
     padding: 10px;
-    background-color: #009688;
-    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    background-color: #007bff;
     border: none;
-    border-radius: 5px;
-    font-size: 16px;
+    border-radius: 6px;
     cursor: pointer;
+    text-transform: uppercase;
     transition: background-color 0.3s ease;
 }
 
-.container button:hover {
-    background-color: #00796b;
+.btn-submit:hover, .btn-back:hover {
+    background-color: #0056b3;
 }
 
-.container button:active {
-    background-color: #00695c;
+/* Back Button */
+.btn-back {
+    background-color: #6c757d;
+    margin-top: 15px;
+}
+
+.btn-back:hover {
+    background-color: #5a6268;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .form-title {
+        font-size: 1.5rem;
+    }
 }

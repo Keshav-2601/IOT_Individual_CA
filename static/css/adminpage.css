@@ -1,67 +1,106 @@
-/* Reset some default styles */
-body, h1, p, canvas {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* General Reset */
 body {
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
     color: #333;
 }
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background: #1e90ff;
-    color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.header .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-.logout-btn {
-    background: #ff6b6b;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.3s ease;
-}
-
-.logout-btn:hover {
-    background: #ff4c4c;
-}
-
-.content {
-    text-align: center;
+/* Container */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 20px;
 }
 
-.content h1 {
-    font-size: 2rem;
-    margin-bottom: 10px;
-}
-
-.content p {
-    font-size: 1.2rem;
+/* Header */
+.header {
+    text-align: center;
+    padding: 20px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 8px;
     margin-bottom: 20px;
 }
 
-canvas {
-    display: block;
+.header h1 {
+    font-size: 2.5rem;
+    margin: 0;
+}
+
+/* Chart Section */
+.chart-section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.chart-section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Data Table */
+.data-section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.data-section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
     margin: 0 auto;
-    max-width: 90%;
-    height: 300px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.data-table th,
+.data-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.data-table th {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+.data-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.data-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Footer Buttons */
+.footer {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.footer .btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 10px;
+}
+
+.footer .btn:hover {
+    background-color: #0056b3;
 }

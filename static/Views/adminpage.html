@@ -1,42 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Air Quality Data</title>
+    <title>Air Quality Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="static/css/homepage.css">
+    <link rel="stylesheet" href="static/css/adminpage.css">
 </head>
+
 <body>
     <div class="container">
-        <canvas id="chart1"></canvas>
-        <h1>Air Quality Data</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Parameter 1</th>
-                    <th>Parameter 2</th>
-                    <th>Parameter 3</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for row in data %}
-                <tr>
-                    <td>{{ row.id }}</td>
-                    <td>{{ row.para1 }}</td>
-                    <td>{{ row.para2 }}</td>
-                    <td>{{ row.para3 }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <a href="/airquality">
-            <button>Air Quality Page</button>
-        </a>
-        <a href="/homepage">
-            <button>Homepage</button>
-        </a>
+        <header class="header">
+            <h1>Air Quality Monitoring Dashboard</h1>
+        </header>
+
+        <section class="data-section">
+            <h2>Air Quality Data</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Temperature </th>
+                        <th>Pressure</th>
+                        <th>AQI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in data %}
+                    <tr>
+                        <td>{{ row.id }}</td>
+                        <td>{{ row.para1 }}</td>
+                        <td>{{ row.para2 }}</td>
+                        <td>{{ row.para3 }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+        <footer class="footer">
+            <a href="/airquality">
+                <button class="btn">Add Data to Air Quality Page</button>
+            </a><br>
+            <a href="/homepage">
+                <button class="btn">Go to Homepage</button>
+            </a>
+        </footer>
+        
     </div>
 </body>
+
 </html>
