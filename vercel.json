@@ -3,14 +3,23 @@
     "builds": [
       {
         "src": "wsgi.py",
-        "use": "@vercel/python"
+        "use": "@vercel/python",
+        "config": {
+          "zeroConfig": true
+        }
       }
     ],
+    "functions": {
+      "wsgi.py": {
+        "runtime": "python3.9"
+      }
+    },
     "routes": [
       {
         "src": "/(.*)",
         "dest": "wsgi.py"
       }
-    ]
+    ],
+    "buildCommand": "bash build.sh"
   }
   
