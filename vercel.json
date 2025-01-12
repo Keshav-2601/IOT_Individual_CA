@@ -9,11 +9,6 @@
         }
       }
     ],
-    "functions": {
-      "wsgi.py": {
-        "runtime": "python3.9"
-      }
-    },
     "routes": [
       {
         "src": "/(.*)",
